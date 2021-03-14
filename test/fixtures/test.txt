@@ -1,0 +1,40 @@
+'use strict';
+
+const fs = require('fs');
+const readline = require('readline');
+const awaitEvent = require('await-event');
+
+class HeapNode {
+  constructor(file, highWaterMark = 64 * 1024) {
+    this.input = fs.createReadStream(file, { highWaterMark });
+    this.rl = readline.createInterface({
+      input: this.input,
+    });
+    this.isEnd = false;
+    this.cache = [];
+
+    this.rl.on('line', line => {
+      this.cache.push(line);
+      if (!this.input.isPaused()) {
+        this.input.pause();
+      }
+    });
+    this.rl.once('close', () => {
+      this.isEnd = true;
+    });
+  }
+
+  async nextLine() {
+    if (this.cache.length) {
+      return this.cache.shift();
+    }
+
+    if (this.isEnd) return null;
+
+    this.input.resume();
+    await awaitEvent(this.rl, 'line');
+    return this.nextLine();
+  }
+}
+
+module.exports = HeapNode;

@@ -1,10 +1,11 @@
 {
-  "name": "external-sorting",
+  "name": "external-sort",
   "version": "1.0.0",
   "description": "external sorting",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "scripts": {
     "autod": "autod",
@@ -37,14 +38,19 @@
     "version": "12, 14, 15"
   },
   "dependencies": {
-
+    "await-first": "^1.0.0",
+    "debug": "^4.3.1",
+    "mz-modules": "^2.1.0"
   },
   "devDependencies": {
     "autod": "^3.1.1",
+    "beautify-benchmark": "^0.2.4",
+    "benchmark": "^2.1.4",
     "contributors": "^0.5.1",
     "egg-bin": "^4.15.0",
     "egg-ci": "^1.18.0",
     "eslint": "^7.22.0",
-    "eslint-config-egg": "^9.0.0"
+    "eslint-config-egg": "^9.0.0",
+    "mm": "^3.2.0"
   }
 }
