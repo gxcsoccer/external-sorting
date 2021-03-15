@@ -43,4 +43,4 @@ await externalSort(input, output, {
 
 ## Benchmark
 
-![](benchmark/image.png)
+![](benchmark/20210315233858.jpg)

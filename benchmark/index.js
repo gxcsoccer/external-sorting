@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const externalSort = require('../');
+const cp = require('child_process');
 const readline = require('readline');
 const Benchmark = require('benchmark');
 const benchmarks = require('beautify-benchmark');
@@ -35,7 +36,14 @@ async function simpleSort(input, output) {
   });
 }
 
+function linuxSort(inputFile, outputFile) {
+  cp.exec(`sort -S 100 -n ${inputFile} > ${outputFile}`);
+}
+
 suite
+  .add('linuxSort 100 条数据', function() {
+    linuxSort(inputFile, outputFile);
+  })
   .add('simpleSort 100 条数据', {
     defer: true,
     fn(deferred) {
